@@ -1,0 +1,59 @@
+{% extends 'room/main.html' %}
+
+{% block content %}
+<br>
+<style>
+  .profile-container{
+    display: grid;
+    grid-template-columns:1fr;
+  }
+</style>
+<br>
+<a href="{% url 'home' %}">Go Home</a>
+<br>
+<br>
+<h1>Profile for {{profile.user.username}}</h1>
+<form method="post" action="">
+  {{profile_form.as_p}}
+  {{user_form.as_p}}
+  <button type="submit">Submit</button>
+</form>
+{% if profile != request.user.profile %}
+<form method="post">
+    {% csrf_token %}
+ <div>
+{% if profile in user.profile.follows.all %}
+<div>
+ <button disabled="True">Follow</button>
+<button name="follow" value="unfollow"> Unfollow</button>
+  {% else %}
+  <button name="follow" value="follow">Follow </button>
+<button disabled="True">Unfollow
+</button>
+</div>
+{% endif %}
+</div>
+</form>
+{% endif %}
+
+<div>
+<h3>Followings:</h3>
+{% for following in profile.follows.all %}
+
+<h4>{{following}}</h4>
+
+{% endfor %}
+<br>
+</div>
+
+<div>
+<h3>Followers:</h3>
+{% for follower in profile.followed_by.all %}
+
+<h4>{{follower}}</h4>
+
+{% endfor %}
+</div>
+
+
+{% endblock %}

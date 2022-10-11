@@ -1,0 +1,48 @@
+
+<!DOCTYPE html>
+<html>
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title></title>
+  <style>
+    img{
+      width:100%;
+    }
+  </style>
+</head>
+
+<body>
+<a href="{% url 'home' %}">Go home</a>
+<h2>Check out all posts</h2>
+<a href="{% url 'create-post' %}">Make a post</a>
+<br>
+<br>
+<div>
+  {% for post in posts %}
+  
+  <div>
+      <hr>
+  <br>
+  <small>{{post.created|timesince}} ago</small>
+  <br>
+  <small>@{{post.author}}</small>
+  {% if post.author == request.user %}
+  <a href="{% url 'delete-post' post.id %}" >remove</a>
+  {% endif %}
+  
+  <a href="{% url 'post-detail' post.id %}">
+  <p>{{post.body}}</p>
+  {% if post.image %}
+  <img src="{{post.image.url}}" alt="" />
+  {% else %}
+  <img src="" alt="" />
+  {% endif %}
+  </a>
+  <br>
+  {% endfor %}
+</div>
+</body>
+
+</html>

@@ -1,0 +1,22 @@
+{% extends 'room/main.html' %}
+
+{% block content %}
+<br>
+<style>
+  .profile-container{
+    display: grid;
+    grid-template-columns:1fr;
+  }
+</style>
+<br>
+<a href="{% url 'home' %}">Go Home</a>
+<br>
+{% for profile in profiles %}
+<div>
+  <h3>{{profile.user}}</h3>
+  <a href="{% url 'profile' profile.id %}">@{{profile.user.username}}</a>
+</div>
+{% endfor %}
+
+
+{% endblock %}

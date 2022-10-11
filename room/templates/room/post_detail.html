@@ -1,0 +1,65 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title></title>
+  <style>
+    img{
+      width:100%;
+    }
+  </style>
+</head>
+
+<body>
+<div>
+    <a href="{{request.META.HTTP_REFERER}}">Go Back</a>
+    <br>
+    <br>
+  <small>{{post.created|timesince}} ago</small>
+  <br>
+  <small>@{{post.author}}</small>
+  {% if post.author == request.user %}
+  <a href="{% url 'delete-post' post.id %}" >remove</a>
+  {% endif %}
+  <p>{{post.body}}</p>
+  {% if post.image %}
+  <img src="{{post.image.url}}" alt="" />
+  {% else %}
+  <img src="" alt="" />
+  {% endif %}
+  <hr>
+  <br>
+  <div>
+    {% if comments_count == 0 %}
+    {% else %}
+ <p>{{comments_count}} comments</p>
+ {% endif %}
+    <h3>Comments</h3>
+    <br>
+  {% for comment in comments %}
+  <div>
+    <hr>
+  <small>@{{comment.user}} {{comment.date_created|timesince}} ago</small>
+{% if request.user == comment.user %}
+<a href="{% url 'delete-comment' comment.id %}">Remove</a>
+{% endif %}
+  <p>{{comment.body}}</p>
+  <hr>
+  {% empty %}
+  <h5>No comments for this post,Be the first to comment!</h5>
+  </div>
+  <hr>
+  {% endfor %}
+  </div>
+     <form method="post" action="">
+      {% csrf_token %}
+      {{comment_form}}
+    <input type="submit" name="" value="Comment"/>
+  </form>
+  
+</div>
+</body>
+
+</html>

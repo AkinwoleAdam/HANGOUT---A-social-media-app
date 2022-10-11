@@ -1,0 +1,50 @@
+
+<style>
+  .room-wrapper{
+    display: grid;
+    grid-template-columns: 3fr 1fr;
+  }
+</style>
+<h1>Room</h1>
+<div class="room-wrapper">
+  
+  <div>
+  <h1>{{room}}</h1>
+  <p>{{room.description}}</p>
+  </div>
+  <br>
+  <div class="conversation">
+    <br>
+    <h2>Chats</h2>
+    <br>
+  {% for message in room_messages %}
+  <div>
+  {% if request.user == message.user %}
+  <a href="{% url 'delete-message' message.id %}">Delete</a>
+  {% endif %}
+    <small>@{{message.user}} {{message.created|timesince}} ago</small>
+    <p>{{message}}</p>
+    <hr>
+    <br>
+  </div>
+  {% endfor %}
+  
+  {% if request.user.is_authenticated %}
+  <div>
+    <form method="POST" action="">
+      {% csrf_token %}
+    <input type="text" name="body" placeholder="Write sth here..."/>
+    </form>
+    {% endif %}
+  </div>
+  </div>
+  
+  <div>
+    <h3>Participants</h3>
+    <hr>
+ {% for user in participants %}
+ <h4>@{{user}}</h4>
+ {% endfor %}
+  </div>
+  
+</div>
