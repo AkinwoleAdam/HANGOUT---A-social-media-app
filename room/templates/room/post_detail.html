@@ -9,25 +9,30 @@
     img{
       width:100%;
     }
+    video {
+      width:100%;
+    }
   </style>
 </head>
 
 <body>
 <div>
-    <a href="{{request.META.HTTP_REFERER}}">Go Back</a>
+    <a href="{% url 'home' %}">Go Back</a>
     <br>
     <br>
   <small>{{post.created|timesince}} ago</small>
   <br>
-  <small>@{{post.author}}</small>
+  <a href="{% url 'profile' post.author.username %}">@{{post.author}}</a>
   {% if post.author == request.user %}
   <a href="{% url 'delete-post' post.id %}" >remove</a>
   {% endif %}
   <p>{{post.body}}</p>
-  {% if post.image %}
-  <img src="{{post.image.url}}" alt="" />
-  {% else %}
-  <img src="" alt="" />
+{% if post.get_type == 'image' %}
+  <img src="{{post.file.url}}" alt="" />
+{% elif post.get_type == 'video' %}
+<video controls>
+  <source src="{{post.file.url}}" type="video/mp4">
+</video>
   {% endif %}
   <hr>
   <br>

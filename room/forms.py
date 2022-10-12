@@ -9,19 +9,11 @@ class RoomForm(forms.ModelForm):
     fields = '__all__'
     exclude = ['host','participants']
     
-    
 class PostForm(forms.ModelForm):
   class Meta:
     model = Post
     fields = '__all__'
     exclude = ['author']
-    
-    
-class UserForm(forms.ModelForm):
-  class Meta:
-    model = User
-    fields = ['username','email','first_name','last_name']
-    
     
 class CommentForm(forms.ModelForm):
   class Meta:
@@ -29,9 +21,13 @@ class CommentForm(forms.ModelForm):
     fields= '__all__'
     exclude = ['user','post']
     
-    
 class ProfileForm(forms.ModelForm):
   class Meta:
     model = Profile
     fields = '__all__'
     exclude = ['follows','user']
+    
+class UserUpdateForm(forms.ModelForm):
+  class Meta:
+    model = User
+    fields = ['username','first_name','last_name']

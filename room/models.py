@@ -1,5 +1,6 @@
 from django.db import models
 from django.contrib.auth.models import User
+from mimetypes import guess_type
 
 # Create your models here.
 
@@ -38,18 +39,24 @@ class Message(models.Model):
     
     
 class Post(models.Model):
-  author = models.ForeignKey(User,related_name='author',on_delete=models.SET_NULL,null=True)
+  author = models.ForeignKey(User,related_name='author',on_delete=models.CASCADE,null=True)
   body = models.TextField(null=True)
-  image = models.ImageField(blank=True,null=True)
+  file = models.FileField(blank=True,null=True)
   created = models.DateTimeField(auto_now_add=True)
     
   def __str__(self):
     return self.body
     
+  def get_type(self):
+    file_type = guess_type(self.file.url, strict=True)[0]
+    # file_type might be ('video/mp4', None) or ('image/jpeg..etc', None)
+    if 'video' in file_type:
+      return 'video'
+    elif 'image' in file_type:
+      return 'image'
+  
   class Meta:
     ordering = ['-created']
-    
-    
     
 class Comment(models.Model):
   user = models.ForeignKey(User,on_delete=models.CASCADE,null=True)

@@ -11,13 +11,21 @@
 <br>
 <a href="{% url 'home' %}">Go Home</a>
 <br>
-<br>
+{% if request.user == profile.user %}
+<h2>My Profile</h2>
+{% else %}
 <h1>Profile for {{profile.user.username}}</h1>
-<form method="post" action="">
-  {{profile_form.as_p}}
-  {{user_form.as_p}}
-  <button type="submit">Submit</button>
-</form>
+{% endif %}
+<p>{{profile.user.first_name}}</p>
+<p>{{profile.user.last_name}}</p>
+<p>{{profile.user.email}}</p>
+<p> {{profile.bio}}</p>
+website <a href="{{profile.website}}">{{profile.website}}</a>
+<br>
+<br>
+{% if request.user == profile.user %}
+<a href="{% url 'edit_profile' user.username %}">Edit Profile</a>
+{% endif %}
 {% if profile != request.user.profile %}
 <form method="post">
     {% csrf_token %}
@@ -40,7 +48,7 @@
 <h3>Followings:</h3>
 {% for following in profile.follows.all %}
 
-<h4>{{following}}</h4>
+<a href="{% url 'profile' following.user.username %}">{{following}}</a>
 
 {% endfor %}
 <br>
@@ -50,7 +58,8 @@
 <h3>Followers:</h3>
 {% for follower in profile.followed_by.all %}
 
-<h4>{{follower}}</h4>
+<a href="{% url 'profile' follower.user.username %}">{{follower}}</a>
+
 
 {% endfor %}
 </div>

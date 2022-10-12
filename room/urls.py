@@ -3,20 +3,18 @@ from . import views
 
 urlpatterns = [
   
-  path('register/',views.registerUser,name='register'),
-  
-  path('login/',views.loginPage,name='login'),
-  
-  path('logout/',views.logoutUser,name='logout'),
-  
   path('',views.home,name='home'),
+  
+  path('rooms/',views.allRooms,name='all_rooms'),
   
   path('room/<str:pk>',views.room,name='room'),
   
-  path('profile_list/',views.AllProfile,name='profile_list'),
+  path('profiles/',views.Profiles,name='profiles'),
   
-  path('profile/<str:pk>',views.EachProfile,name='profile'),
+  path('profile/<username>',views.eachProfile,name='profile'),
   
+   path('profile/edit/<username>',views.editProfile,name='edit_profile'),
+   
   path('create-room/',views.CreateRoom,name='create-room'),
   
   path('update-room/<str:pk>',views.UpdateRoom,name='update-room'),
@@ -24,8 +22,6 @@ urlpatterns = [
   path('delete-room/<str:pk>',views.DeleteRoom,name='delete-room'),
   
   path('delete-message/<str:pk>',views.DeleteMessage,name='delete-message'),
-  
-  path('all_posts/',views.post,name='post'),
   
   path('post_detail/<str:pk>',views.PostDetail,name='post-detail'),
   
