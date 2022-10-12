@@ -2,13 +2,13 @@
     <h2>Browse Topics</h2>
     <hr>
      <div>
-    <a href="{% url 'home' %}">
+    <a href="{% url 'all_rooms' %}">
       All</a>
     </div>
     
     {% for topic in topics %}
     <div>
-    <a href="{% url 'home' %}?q={{topic.name}}">{{topic.name}}</a>
+    <a href="{% url 'all_rooms' %}?q={{topic.name}}">{{topic.name}}</a>
     </div>
     {% endfor %}
   </div>

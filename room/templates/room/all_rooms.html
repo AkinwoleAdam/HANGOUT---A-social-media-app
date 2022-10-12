@@ -22,8 +22,8 @@
   <a href="{% url 'home' %}">Home</a>
   <br>
   <br>
-  <form method="GET" action="{% url 'home' %}">
-  <input type="text" name="q" placeholder="Search Rooms"/>
+  <form method="GET" action="{% url 'all_rooms' %}">
+  <input type="text" name="q" value="{{request.GET.q}}" placeholder="Search Rooms"/>
   </form>
 <div class="home-container">
   

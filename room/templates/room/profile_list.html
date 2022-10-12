@@ -13,8 +13,10 @@
 <br>
 {% for profile in all_profiles %}
 
+{% if user.profile not in profile.followed_by.all %}
 <h3>{{profile.user}}</h3>
 <a href="{% url 'profile' profile.user.username %}">@{{profile.user.username}}</a>
+{% endif %}
 {% endfor %}
 
 {% endblock %}

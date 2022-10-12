@@ -6,6 +6,7 @@
   }
 </style>
 <h1>Room</h1>
+<h2>Room host <a href="{% url 'profile' room.host.username %}">{{room.host}}</a></h2>
 <div class="room-wrapper">
   
   <div>
@@ -43,7 +44,7 @@
     <h3>Participants</h3>
     <hr>
  {% for user in participants %}
- <h4>@{{user}}</h4>
+ <a href="{% url 'profile' user.username %}">@{{user}}</a>
  {% endfor %}
   </div>
   

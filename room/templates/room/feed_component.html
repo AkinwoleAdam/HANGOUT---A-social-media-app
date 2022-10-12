@@ -8,7 +8,7 @@
   {% endif %}
   <br>
   <br>
-  <a href="{% url 'profile' room.host.profile.id %}">@{{room.host.username}}</a>
+  <a href="{% url 'profile' room.host.username %}">@{{room.host.username}}</a>
   <br>
   <br>
  <a href="{% url 'room' room.id %}">{{room}}</a>
