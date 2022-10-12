@@ -9,7 +9,6 @@ class Topic(models.Model):
   def __str__(self):
     return self.name
     
-    
 class Room(models.Model):
   host = models.ForeignKey(User,on_delete=models.SET_NULL,null=True)
   topic = models.ForeignKey(Topic,on_delete=models.SET_NULL,null=True)
@@ -24,7 +23,6 @@ class Room(models.Model):
   def __str__(self):
     return self.name
     
-    
 class Message(models.Model):
   user = models.ForeignKey(User,on_delete=models.CASCADE)
   room = models.ForeignKey(Room,on_delete=models.CASCADE)
@@ -36,7 +34,6 @@ class Message(models.Model):
   
   def __str__(self):
     return self.body[0:50]
-    
     
 class Post(models.Model):
   author = models.ForeignKey(User,related_name='author',on_delete=models.CASCADE,null=True)
@@ -68,8 +65,6 @@ class Comment(models.Model):
     
   def __str__(self):
     return self.body
-    
-    
     
 class Profile(models.Model):
   user = models.OneToOneField(User,on_delete=models.CASCADE,null=True,blank=True)

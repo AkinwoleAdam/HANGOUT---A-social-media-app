@@ -47,7 +47,6 @@ website <a href="{{profile.website}}">{{profile.website}}</a>
 <div>
 <h3>Followings:</h3>
 {% for following in profile.follows.all %}
-
 <a href="{% url 'profile' following.user.username %}">{{following}}</a>
 
 {% endfor %}

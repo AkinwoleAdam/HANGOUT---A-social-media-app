@@ -96,7 +96,7 @@ def UpdateRoom(request,pk):
       update = form.save(commit=False)
       update.user = request.user
       update.save()
-      return redirect('home')
+      return redirect('all_rooms')
   context = {'form':form}
   return render(request,'room/room_form.html',context)
 
@@ -105,7 +105,7 @@ def DeleteRoom(request,pk):
   room = Room.objects.get(id=pk)
   if request.method == "POST":
     room.delete()
-    return redirect('home')
+    return redirect('all_rooms')
   context = {'obj':room}
   return render(request,'room/delete.html',context)
 
@@ -126,7 +126,7 @@ def DeleteMessage(request,pk):
   message = Message.objects.get(id=pk)
   if request.method == "POST":
     message.delete()
-    return redirect('home')
+    return redirect('all_rooms')
   context = {'obj':message}
   return render(request,'room/delete.html',context)
 
@@ -168,3 +168,6 @@ def editProfile(request,username):
       return redirect('profile',profile.user.username)
   context = {'profile':profile,'form':form,'user_form':user_form}
   return render(request,'room/profile_edit.html',context)
+  
+def error_404(request, exception):
+  return render(request, 'room/404.html')

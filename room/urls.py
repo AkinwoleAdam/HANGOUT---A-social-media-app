@@ -31,3 +31,5 @@ urlpatterns = [
   
   path('delete-comment/<str:pk>',views.DeleteComment,name='delete-comment'),
   ]
+  
+handler404 = 'room.views.error_404'

@@ -18,6 +18,9 @@
     video {
       width:100%;
     }
+    a{
+      text-decoration:none;
+    }
   </style>
 </head>
 
@@ -47,6 +50,8 @@
 <a href="{% url 'create-post' %}">Make a post</a>
 <br>
 <h2>All Posts</h2>
+
+
 <div>
   {% for post in posts %}
   <div>
